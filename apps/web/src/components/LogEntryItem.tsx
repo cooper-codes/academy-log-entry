@@ -42,7 +42,7 @@ const LogEntryItem: React.FC<LogEntryItemProps> = ({ entry, onEdit, onDelete }) 
   };
 
   return (
-    <Card className="mb-4 shadow-xs hover:shadow-md transition-shadow duration-200 fade-in">
+    <Card role='article' className="mb-4 shadow-xs hover:shadow-md transition-shadow duration-200 fade-in">
       <CardHeader>
         <div className="flex items-start justify-between">
           <CardTitle className="text-xl">{entry.name}</CardTitle>

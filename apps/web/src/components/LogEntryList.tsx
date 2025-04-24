@@ -17,7 +17,7 @@ const LogEntryList: React.FC<LogEntryListProps> = ({ entries, onEdit, onDelete }
 
   // Sort entries by date, most recent first
   const sortedEntries = [...entries].sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
   );
 
   return (

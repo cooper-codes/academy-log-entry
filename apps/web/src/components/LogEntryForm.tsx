@@ -133,7 +133,7 @@ const LogEntryForm: React.FC<LogEntryFormProps> = ({ existingEntry, previousName
                 id="location"
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
-                placeholder="Where did this happen?"
+                placeholder="Location of the event"
                 required
               />
             </div>
