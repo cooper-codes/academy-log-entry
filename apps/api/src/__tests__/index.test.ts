@@ -1,22 +1,26 @@
 import supertest from "supertest";
-import { describe, it, expect } from "@jest/globals";
-import { type Express } from "express";
+import { describe, it, expect, beforeAll, afterAll } from "@jest/globals";
+import { createServer } from "../server";
+import { Server } from "http";
 
+let app: Server;
 describe('API Tests', () => {
-	it('GET /endpoint should return 200', async () => {
-		const response = await request(app).get('/endpoint');
-		expect(response.status).toBe(200);
-		expect(response.body).toHaveProperty('data');
-	});
 
-	it('POST /endpoint should return 201', async () => {
-		const response = await request(app).post('/endpoint').send({ key: 'value' });
-		expect(response.status).toBe(201);
-		expect(response.body).toHaveProperty('message', 'Created');
+	beforeAll(async () => {
+		app = await createServer();
+	})
+
+	afterAll(async () => {
+		app.close();
+	})
+
+	it('GET /endpoint should return 200', async () => {
+		const response = await supertest(app).get('/status');
+		expect(response.status).toBe(200);
 	});
 
 	it('GET /nonexistent should return 404', async () => {
-		const response = await request(app).get('/nonexistent');
+		const response = await supertest(app).get('/nonexistent');
 		expect(response.status).toBe(404);
 	});
 });

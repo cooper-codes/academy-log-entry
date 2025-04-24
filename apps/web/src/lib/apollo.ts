@@ -3,7 +3,7 @@ import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 
 export const client = new ApolloClient({
   // We'll update this URL when you provide the actual GraphQL API
-  uri: 'http://localhost:4000',
+  uri: 'http://localhost:4000/graphql',
   cache: new InMemoryCache(),
 });
 

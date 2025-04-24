@@ -8,11 +8,14 @@ import LogEntryList from '@/components/LogEntryList';
 import { LogEntry } from '@/types/LogEntry';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { toast } from '@/hooks/use-toast';
+import ErrorState from '@/components/ErrorState';
+import LoadingSpinner from '@/components/ui/loading';
+import Wrapper from '@/components/Wrapper';
 
 const Index = () => {
   const [editingEntry, setEditingEntry] = useState<LogEntry | null>(null);
   const [deleteEntryId, setDeleteEntryId] = useState<string | null>(null);
-  
+
   const { data, loading, error } = useQuery(GET_LOG_ENTRIES);
   const [createLogEntry] = useMutation(CREATE_LOG_ENTRY);
   const [updateLogEntry] = useMutation(UPDATE_LOG_ENTRY);
@@ -31,7 +34,7 @@ const Index = () => {
           },
           refetchQueries: [{ query: GET_LOG_ENTRIES }]
         });
-        
+
         setEditingEntry(null);
         toast({
           title: "Entry Updated",
@@ -44,7 +47,7 @@ const Index = () => {
           },
           refetchQueries: [{ query: GET_LOG_ENTRIES }]
         });
-        
+
         toast({
           title: "Entry Created",
           description: "Your log entry has been saved successfully."
@@ -75,7 +78,7 @@ const Index = () => {
           variables: { id: deleteEntryId },
           refetchQueries: [{ query: GET_LOG_ENTRIES }]
         });
-        
+
         setDeleteEntryId(null);
         toast({
           title: "Entry Deleted",
@@ -91,11 +94,21 @@ const Index = () => {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
-  if (error) return <div>Error loading entries</div>;
+  if (loading) return (
+    <Wrapper>
+      <Header />
+      <LoadingSpinner />
+    </Wrapper>
+  )
+  if (error) return (
+    <Wrapper>
+      <Header />
+      <ErrorState />
+    </Wrapper>
+  )
 
   return (
-    <div className="min-h-screen flex flex-col bg-muted/30">
+    <Wrapper>
       <Header />
       <main className="flex-1 container mx-auto px-4 py-8 max-w-4xl">
         <LogEntryForm
@@ -110,7 +123,7 @@ const Index = () => {
           onDelete={(id) => setDeleteEntryId(id)}
         />
       </main>
-      
+
       <AlertDialog open={!!deleteEntryId} onOpenChange={() => setDeleteEntryId(null)}>
         <AlertDialogContent>
           <AlertDialogHeader>
@@ -127,7 +140,7 @@ const Index = () => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-    </div>
+    </Wrapper>
   );
 };
 

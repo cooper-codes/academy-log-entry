@@ -1,38 +1,35 @@
-import "reflect-metadata"; // For TypeGraphQL + needs to be first
+import { Socket } from 'net';
+import { createServer } from './server';
 
-import express from 'express';
-import cors from "cors";
-import morgan from 'morgan';
-import { ApolloServer } from '@apollo/server';
-import { expressMiddleware } from "@apollo/server/express4";
-import Container from "typedi";
 
-import getSchema from './graphql';
-import { DataSourceProvider } from "./dal/dataSource";
+const bootstrap = async () => {
+    const server = await createServer();
 
-export const createServer = async () => {
-  const app = express();
+    process.on('SIGTERM', shutDown);
+    process.on('SIGINT', shutDown);
 
-  app
-    .disable("x-powered-by")
-    .use(morgan(process.env.NODE_ENV !== 'production' ? "dev" : "combined"))
+    let connections: Socket[] = [];
 
-  await Container.get(DataSourceProvider).initialize()
+    server.on('connection', connection => {
+        connections.push(connection);
+        connection.on('close', () => connections = connections.filter(curr => curr !== connection));
+    });
 
-  const schema = await getSchema();
+    function shutDown() {
+        console.log('Received kill signal, shutting down gracefully');
+        server.close(() => {
+            console.log('Closed out remaining connections');
+            process.exit(0);
+        });
 
-  const server = new ApolloServer({ schema });
+        setTimeout(() => {
+            console.error('Could not close connections in time, forcefully shutting down');
+            process.exit(1);
+        }, 10000);
 
-  await server.start()
+        connections.forEach(curr => curr.end());
+        setTimeout(() => connections.forEach(curr => curr.destroy()), 5000);
+    }
+}
 
-  app.use('/', cors<cors.CorsRequest>(), express.json(), expressMiddleware(server))
-
-  const PORT = process.env.PORT || 4000;
-
-  app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-  });
-};
-
-createServer();
-
+bootstrap()
