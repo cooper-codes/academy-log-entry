@@ -23,7 +23,7 @@ export const GET_LOG_ENTRIES = gql`
 `;
 
 export const CREATE_LOG_ENTRY = gql`
-  mutation CreateLogEntry($input: CreateLogEntryInput!) {
+  mutation CreateLogEntry($input: LogEntryInput!) {
     createLogEntry(input: $input) {
       id
       name
@@ -37,7 +37,7 @@ export const CREATE_LOG_ENTRY = gql`
 `;
 
 export const UPDATE_LOG_ENTRY = gql`
-  mutation UpdateLogEntry($id: ID!, $input: UpdateLogEntryInput!) {
+  mutation UpdateLogEntry($id: ID!, $input: LogEntryInput!) {
     updateLogEntry(id: $id, input: $input) {
       id
       name

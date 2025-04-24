@@ -2,7 +2,7 @@ import { Arg, ID, Mutation, Query, Resolver } from "type-graphql";
 import { Service } from "typedi";
 import { LogEntry, LogEntryDeleteResponse } from "../entities/logEntry";
 import { LogEntryService } from "../../dal/logEntryService";
-import { CreateLogEntryInput, UpdateLogEntryInput } from "../inputs/logEntry";
+import { LogEntryInput } from "../inputs/logEntry";
 
 @Service()
 @Resolver(of => LogEntry)
@@ -16,13 +16,13 @@ export default class LogResolver {
     }
 
     @Mutation(type => LogEntry)
-    async createLogEntry(@Arg('input') input: CreateLogEntryInput): Promise<LogEntry> {
+    async createLogEntry(@Arg('input') input: LogEntryInput): Promise<LogEntry> {
         return this.logEntryService.createLogEntry(input);
     }
 
     @Mutation(type => LogEntry, { nullable: true })
-    async updateLogEntry(@Arg('input') input: UpdateLogEntryInput): Promise<LogEntry | null> {
-        return this.logEntryService.updateLogEntry(input)
+    async updateLogEntry(@Arg('id', () => ID) id: string, @Arg('input') input: LogEntryInput): Promise<LogEntry | null> {
+        return this.logEntryService.updateLogEntry(id, input)
     }
 
     @Mutation(type => LogEntryDeleteResponse)

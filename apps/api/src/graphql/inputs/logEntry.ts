@@ -1,7 +1,7 @@
 import { Field, InputType } from "type-graphql";
 
 @InputType()
-export class CreateLogEntryInput {
+export class LogEntryInput {
     @Field(() => String)
     name!: string;
 
@@ -13,13 +13,4 @@ export class CreateLogEntryInput {
 
     @Field(() => String)
     date!: string;
-}
-
-@InputType()
-export class UpdateLogEntryInput {
-    @Field(() => String)
-    name!: string;
-
-    @Field(() => String)
-    id!: string;
 }

@@ -24,13 +24,13 @@ const Index = () => {
   const logEntries = data?.logEntries || [];
   const previousName = logEntries.length > 0 ? logEntries[0].name : '';
 
-  const handleSaveEntry = async (entryData: Omit<LogEntry, 'id' | 'createdAt'>) => {
+  const handleSaveEntry = async (entryData: Omit<LogEntry, 'updatedAt' | 'createdAt'>) => {
     try {
       if (editingEntry) {
         await updateLogEntry({
           variables: {
             id: editingEntry.id,
-            input: entryData
+            input: entryData,
           },
           refetchQueries: [{ query: GET_LOG_ENTRIES }]
         });

@@ -4,7 +4,7 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Button } from "@/components/ui/button";
 import { LogEntry } from '@/types/LogEntry';
 import { Edit, Trash2, MapPin, Calendar } from 'lucide-react';
-import { format } from 'date-fns';
+import { format, parse } from 'date-fns';
 import { formatInTimeZone } from 'date-fns-tz';
 
 interface LogEntryItemProps {
@@ -14,11 +14,15 @@ interface LogEntryItemProps {
 }
 
 const LogEntryItem: React.FC<LogEntryItemProps> = ({ entry, onEdit, onDelete }) => {
-  // Format date to be more readable with timezone consideration
-
+  
   const formatDate = (dateString: string) => {
-    return format(dateString, 'MMMM d, yyyy')
+    // Have to parse as dates comes in YYYY-MM-DD format and date-fns needs a Date object
+    // to format it correctly. This is a workaround to avoid using moment.js or other libraries.
+    const date = parse(dateString, 'yyyy-MM-dd', new Date());
+    return format(date, 'MMMM d, yyyy');
   }
+
+  // Format date to be more readable with timezone consideration
   const formatDateTime = (dateString: string) => {
 
     try {
@@ -28,7 +32,7 @@ const LogEntryItem: React.FC<LogEntryItemProps> = ({ entry, onEdit, onDelete }) 
       return formatInTimeZone(
         new Date(dateString),
         userTimezone,
-        'MMMM d, yyyy'
+        'MMMM d, yyyy h:mm a'
       );
     } catch (error) {
       console.error("Error formatting date:", error);
@@ -38,7 +42,7 @@ const LogEntryItem: React.FC<LogEntryItemProps> = ({ entry, onEdit, onDelete }) 
   };
 
   return (
-    <Card className="mb-4 shadow-sm hover:shadow-md transition-shadow duration-200 fade-in">
+    <Card className="mb-4 shadow-xs hover:shadow-md transition-shadow duration-200 fade-in">
       <CardHeader>
         <div className="flex items-start justify-between">
           <CardTitle className="text-xl">{entry.name}</CardTitle>

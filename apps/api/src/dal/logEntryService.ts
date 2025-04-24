@@ -1,7 +1,7 @@
 import { Service } from "typedi";
 import { DataSourceProvider } from "./dataSource";
 import { LogEntry } from "../graphql/entities/logEntry";
-import { CreateLogEntryInput, UpdateLogEntryInput } from "../graphql/inputs/logEntry";
+import { LogEntryInput } from "../graphql/inputs/logEntry";
 import { Repository } from "typeorm";
 
 @Service()
@@ -22,7 +22,7 @@ export class LogEntryService {
         return entries
     }
 
-    async createLogEntry(logEntry: CreateLogEntryInput): Promise<LogEntry> {
+    async createLogEntry(logEntry: LogEntryInput): Promise<LogEntry> {
         const newLogEntry = this.repository.create(logEntry);
         newLogEntry.createdAt = new Date().toISOString();
         newLogEntry.updatedAt = new Date().toISOString();
@@ -30,8 +30,8 @@ export class LogEntryService {
         return this.repository.save(newLogEntry);
     }
 
-    async updateLogEntry(logEntry: UpdateLogEntryInput): Promise<LogEntry | null> {
-        const existingLogEntry = await this.repository.findOneBy({ id: logEntry.id });
+    async updateLogEntry(id: string, logEntry: LogEntryInput): Promise<LogEntry | null> {
+        const existingLogEntry = await this.repository.findOneBy({ id });
         if (!existingLogEntry) {
             return null;
         }

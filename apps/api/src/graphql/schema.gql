@@ -3,13 +3,6 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
-input CreateLogEntryInput {
-  date: String!
-  description: String!
-  location: String!
-  name: String!
-}
-
 type LogEntry {
   createdAt: String!
   date: String!
@@ -24,17 +17,19 @@ type LogEntryDeleteResponse {
   id: ID
 }
 
+input LogEntryInput {
+  date: String!
+  description: String!
+  location: String!
+  name: String!
+}
+
 type Mutation {
-  createLogEntry(input: CreateLogEntryInput!): LogEntry!
+  createLogEntry(input: LogEntryInput!): LogEntry!
   deleteLogEntry(id: ID!): LogEntryDeleteResponse!
-  updateLogEntry(input: UpdateLogEntryInput!): LogEntry
+  updateLogEntry(id: ID!, input: LogEntryInput!): LogEntry
 }
 
 type Query {
   logEntries: [LogEntry!]!
-}
-
-input UpdateLogEntryInput {
-  id: String!
-  name: String!
 }
