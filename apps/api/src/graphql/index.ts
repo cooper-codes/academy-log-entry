@@ -7,7 +7,7 @@ const getSchema = async () => buildSchema({
     validate: true,
     nullableByDefault: false,
     container: Container,
-    emitSchemaFile: './schema.gql'
+    emitSchemaFile: __dirname + '/schema.gql'
 });
 
 export default getSchema

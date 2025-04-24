@@ -31,7 +31,3 @@ yarn-error.log*
 
 # database files
 *.sqlite
-
-# schema files
-*.gql
-*.graphql
