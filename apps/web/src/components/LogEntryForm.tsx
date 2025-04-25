@@ -1,9 +1,9 @@
 
 import React, { useState, useEffect } from 'react';
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/shared/button";
+import { Input } from "@/components/shared/input";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/shared/card";
+import { Textarea } from "@/components/shared/textarea";
 import { LogEntry } from '@/types/LogEntry';
 import { toast } from '@/hooks/use-toast';
 

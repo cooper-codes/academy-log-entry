@@ -6,10 +6,10 @@ import Header from '@/components/Header';
 import LogEntryForm from '@/components/LogEntryForm';
 import LogEntryList from '@/components/LogEntryList';
 import { LogEntry } from '@/types/LogEntry';
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/shared/alert-dialog';
 import { toast } from '@/hooks/use-toast';
 import ErrorState from '@/components/ErrorState';
-import LoadingSpinner from '@/components/ui/loading';
+import LoadingSpinner from '@/components/shared/loading';
 import Wrapper from '@/components/Wrapper';
 
 const Index = () => {

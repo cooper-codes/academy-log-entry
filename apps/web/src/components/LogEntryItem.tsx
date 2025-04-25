@@ -1,7 +1,7 @@
 
 import React from 'react';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/shared/card";
+import { Button } from "@/components/shared/button";
 import { LogEntry } from '@/types/LogEntry';
 import { Edit, Trash2, MapPin, Calendar } from 'lucide-react';
 import { format, parse } from 'date-fns';
@@ -14,7 +14,7 @@ interface LogEntryItemProps {
 }
 
 const LogEntryItem: React.FC<LogEntryItemProps> = ({ entry, onEdit, onDelete }) => {
-  
+
   const formatDate = (dateString: string) => {
     // Have to parse as dates comes in YYYY-MM-DD format and date-fns needs a Date object
     // to format it correctly. This is a workaround to avoid using moment.js or other libraries.
@@ -46,8 +46,8 @@ const LogEntryItem: React.FC<LogEntryItemProps> = ({ entry, onEdit, onDelete }) 
       <CardHeader>
         <div className="flex items-start justify-between">
           <CardTitle className="text-xl">{entry.name}</CardTitle>
-          <div className="text-sm text-muted-foreground">
-            Last updated: {formatDateTime(entry.updatedAt)}
+          <div className="text-sm text-muted-foreground mt-2">
+             Updated: {formatDateTime(entry.updatedAt)}
           </div>
         </div>
       </CardHeader>

@@ -1,5 +1,5 @@
 
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "@/components/shared/toaster";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ApolloProvider } from '@apollo/client';
 import { client } from './lib/apollo';

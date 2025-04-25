@@ -1,6 +1,12 @@
 import { Field, ID, ObjectType } from "type-graphql";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
+/**
+ * This is a shared entity that represents both the GraphQL (ObjectType) and database definition (Entity) of a log entry.
+ * @Fields() define the GraphQL schema for the log entry.
+ * @Column() define the database schema for the log entry.
+ * For more complex definitions, consider using a separate class for the database entity.
+ */
 @ObjectType()
 @Entity()
 export class LogEntry {
