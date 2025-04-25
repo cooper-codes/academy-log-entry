@@ -42,7 +42,7 @@ To get started with the project, follow these steps:
    pnpm dev
    ```
 
-   The frontend is viewable at [http://localhost:8080](http://localhost:8080)
+   The frontend is viewable at [http://localhost:8080](http://localhost:8080)  
    The backend is viewable at [http://localhost:4000/graphql](http://localhost:4000/graphql)
 
 1. **Run tests**: From the project root:
