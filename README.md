@@ -1,4 +1,4 @@
-# Monorepo Project
+# Log Entry Project
 
 This monorepo contains two main applications: an API built with Node.js, Express, and Apollo GraphQL, and a frontend application built with React, Tailwind CSS, and Vite. The project is managed using Turborepo and pnpm.
 
@@ -54,15 +54,13 @@ To get started with the project, follow these steps:
 1. **Run just the API**: Navigate to the API application directory and start the server:
 
    ```sh
-   cd apps/api
-   pnpm dev
+   pnpm dev --filter api
    ```
 
 1. **Run just the Frontend**: In a new terminal, navigate to the frontend application directory and start the development server:
 
    ```sh
-   cd apps/web
-   pnpm dev
+    pnpm dev --filter web
    ```
 
 ## Development
