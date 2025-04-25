@@ -16,10 +16,17 @@ interface LogEntryItemProps {
 const LogEntryItem: React.FC<LogEntryItemProps> = ({ entry, onEdit, onDelete }) => {
 
   const formatDate = (dateString: string) => {
-    // Have to parse as dates comes in YYYY-MM-DD format and date-fns needs a Date object
-    // to format it correctly. This is a workaround to avoid using moment.js or other libraries.
-    const date = parse(dateString, 'yyyy-MM-dd', new Date());
-    return format(date, 'MMMM d, yyyy');
+    try {
+
+      // Have to parse as dates comes in YYYY-MM-DD format and date-fns needs a Date object
+      // to format it correctly. This is a workaround to avoid using moment.js or other libraries.
+      const date = parse(dateString, 'yyyy-MM-dd', new Date());
+      return format(date, 'MMMM d, yyyy');
+    } catch (error) {
+      console.error("Error formatting date:", error);
+      // Fallback to basic formatting if there's an error
+      return format(new Date(dateString), 'MMMM d, yyyy');
+    }
   }
 
   // Format date to be more readable with timezone consideration
@@ -47,7 +54,7 @@ const LogEntryItem: React.FC<LogEntryItemProps> = ({ entry, onEdit, onDelete }) 
         <div className="flex items-start justify-between">
           <CardTitle className="text-xl">{entry.name}</CardTitle>
           <div className="text-sm text-muted-foreground mt-2">
-             Updated: {formatDateTime(entry.updatedAt)}
+            Updated: {formatDateTime(entry.updatedAt)}
           </div>
         </div>
       </CardHeader>
