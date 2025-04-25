@@ -19,7 +19,7 @@ export class DataSourceProvider {
             type: 'sqlite',
             database: __dirname + '/../db/logEntries.sqlite',
             synchronize: true,
-            logging: true,
+            logging: false,
             entities: [
                 __dirname + "/../graphql/entities/*.ts",
             ],
