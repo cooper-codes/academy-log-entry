@@ -76,7 +76,7 @@ describe("LogEntryService", () => {
         const date = new Date()
         date.setDate(date.getDate() - 1); // Set date to yesterday
         const input: LogEntryInput = { name: "Updated Name", description: "Updated Content", location: "Updated Location", date: "2024-05-01" };
-        const existingLogEntry: LogEntry = { id, name: "Name 1", description: "Description 1", location: "Location 1", date: "2024-05-01", createdAt: date, updatedAt: date };
+        const existingLogEntry: LogEntry = { id, name: "Name 1", description: "Description 1", location: "Location 1", date: "2024-05-01", createdAt: date.toISOString(), updatedAt: date.toISOString() };
 
         repositoryMock.findOneBy.mockResolvedValue(existingLogEntry);
 
