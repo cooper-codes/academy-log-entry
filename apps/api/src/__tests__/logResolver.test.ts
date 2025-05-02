@@ -14,8 +14,7 @@ describe("LogResolver", () => {
     let logEntryServiceMock: jest.Mocked<LogEntryService>;
 
     beforeEach(() => {
-        const dataSourceProviderMock = new DataSourceProvider() as jest.Mocked<DataSourceProvider>;
-        logEntryServiceMock = new LogEntryService(dataSourceProviderMock) as jest.Mocked<LogEntryService>;
+        logEntryServiceMock = new LogEntryService(new DataSourceProvider()) as jest.Mocked<LogEntryService>;
         logResolver = new LogResolver(logEntryServiceMock);
     });
 

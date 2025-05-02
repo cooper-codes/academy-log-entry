@@ -8,7 +8,6 @@
         "dev": "turbo run dev",
         "test": "turbo run test"
     },
-    "dependencies": {},
     "devDependencies": {
         "prettier": "^3.2.5",
         "turbo": "^2.5.2"
@@ -17,5 +16,5 @@
         "node": ">=20.0.0",
         "npm": ">=7.0.0"
     },
-    "packageManager": "pnpm@10.6.3"
+    "packageManager": "pnpm@10.10.0"
 }
